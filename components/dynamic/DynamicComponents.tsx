@@ -115,17 +115,18 @@ export const DynamicPrintPreview = dynamic(
 )
 
 // Chart/Analytics components (if we add them later)
-export const DynamicChart = dynamic(
-  () => import('react-chartjs-2').then(mod => mod.Chart),
-  {
-    loading: () => (
-      <div className="h-64 bg-gray-100 rounded-lg flex items-center justify-center">
-        <LoadingSpinner size="lg" />
-      </div>
-    ),
-    ssr: false
-  }
-)
+// TODO: Install react-chartjs-2 package when chart functionality is needed
+// export const DynamicChart = dynamic(
+//   () => import('react-chartjs-2').then(mod => mod.Chart),
+//   {
+//     loading: () => (
+//       <div className="h-64 bg-gray-100 rounded-lg flex items-center justify-center">
+//         <LoadingSpinner size="lg" />
+//       </div>
+//     ),
+//     ssr: false
+//   }
+// )
 
 // Modal components (only loaded when needed)
 export const DynamicModal = dynamic(
@@ -137,39 +138,42 @@ export const DynamicModal = dynamic(
 )
 
 // File upload components
-export const DynamicFileUpload = dynamic(
-  () => import('@/components/ui/FileUpload').then(mod => ({ default: mod.FileUpload })),
-  {
-    loading: () => (
-      <div className="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center">
-        <LoadingSpinner size="md" />
-        <p className="mt-2 text-sm text-gray-500">Loading file upload...</p>
-      </div>
-    ),
-    ssr: false
-  }
-)
+// TODO: Create FileUpload component when file upload functionality is needed
+// export const DynamicFileUpload = dynamic(
+//   () => import('@/components/ui/FileUpload').then(mod => ({ default: mod.FileUpload })),
+//   {
+//     loading: () => (
+//       <div className="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center">
+//         <LoadingSpinner size="md" />
+//         <p className="mt-2 text-sm text-gray-500">Loading file upload...</p>
+//       </div>
+//     ),
+//     ssr: false
+//   }
+// )
 
 // Advanced form components
-export const DynamicRichTextEditor = dynamic(
-  () => import('@/components/ui/RichTextEditor').then(mod => ({ default: mod.RichTextEditor })),
-  {
-    loading: () => (
-      <div className="border border-gray-300 rounded-md h-32 flex items-center justify-center">
-        <LoadingSpinner size="md" />
-      </div>
-    ),
-    ssr: false
-  }
-)
+// TODO: Create RichTextEditor component when rich text editing is needed
+// export const DynamicRichTextEditor = dynamic(
+//   () => import('@/components/ui/RichTextEditor').then(mod => ({ default: mod.RichTextEditor })),
+//   {
+//     loading: () => (
+//       <div className="border border-gray-300 rounded-md h-32 flex items-center justify-center">
+//         <LoadingSpinner size="md" />
+//       </div>
+//     ),
+//     ssr: false
+//   }
+// )
 
 // Date picker (heavy due to calendar logic)
-export const DynamicDatePicker = dynamic(
-  () => import('@/components/ui/DatePicker').then(mod => ({ default: mod.DatePicker })),
-  {
-    loading: () => (
-      <div className="w-full h-10 bg-gray-100 rounded-md animate-pulse" />
-    ),
-    ssr: false
-  }
-)
+// TODO: Create DatePicker component when advanced date picking is needed
+// export const DynamicDatePicker = dynamic(
+//   () => import('@/components/ui/DatePicker').then(mod => ({ default: mod.DatePicker })),
+//   {
+//     loading: () => (
+//       <div className="w-full h-10 bg-gray-100 rounded-md animate-pulse" />
+//     ),
+//     ssr: false
+//   }
+// )

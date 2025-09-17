@@ -9,12 +9,20 @@ import { DualSignatureSection } from '@/components/forms/SignatureSection'
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/Card'
 
 function SignatureDemoContent() {
-  const [engineerSignature, setEngineerSignature] = useState<string | null>(null)
-  const [clientSignature, setClientSignature] = useState<string | null>(null)
+  const [engineerSignature, setEngineerSignature] = useState<string | undefined>(undefined)
+  const [clientSignature, setClientSignature] = useState<string | undefined>(undefined)
   const [engineerName, setEngineerName] = useState('John Smith')
   const [engineerLicence, setEngineerLicence] = useState('123456')
   const [clientName, setClientName] = useState('Jane Doe')
   const [clientPosition, setClientPosition] = useState('Property Manager')
+
+  const handleEngineerSignatureChange = (url: string | null) => {
+    setEngineerSignature(url || undefined)
+  }
+
+  const handleClientSignatureChange = (url: string | null) => {
+    setClientSignature(url || undefined)
+  }
 
   return (
     <DashboardLayout title="Signature Upload Demo">
@@ -30,14 +38,14 @@ function SignatureDemoContent() {
               <div>
                 <SignatureUpload
                   value={engineerSignature}
-                  onChange={setEngineerSignature}
+                  onChange={handleEngineerSignatureChange}
                   label="Engineer Signature"
                 />
               </div>
               <div>
                 <SignatureUpload
                   value={clientSignature}
-                  onChange={setClientSignature}
+                  onChange={handleClientSignatureChange}
                   label="Client Signature"
                 />
               </div>
@@ -78,14 +86,14 @@ function SignatureDemoContent() {
           <CardContent>
             <DualSignatureSection
               engineerSignatureUrl={engineerSignature}
-              onEngineerSignatureChange={setEngineerSignature}
+              onEngineerSignatureChange={handleEngineerSignatureChange}
               engineerName={engineerName}
               onEngineerNameChange={setEngineerName}
               engineerLicence={engineerLicence}
               onEngineerLicenceChange={setEngineerLicence}
               
               clientSignatureUrl={clientSignature}
-              onClientSignatureChange={setClientSignature}
+              onClientSignatureChange={handleClientSignatureChange}
               clientName={clientName}
               onClientNameChange={setClientName}
               clientPosition={clientPosition}
@@ -103,12 +111,12 @@ function SignatureDemoContent() {
             <div className="print-signatures">
               <DualSignatureSection
                 engineerSignatureUrl={engineerSignature}
-                onEngineerSignatureChange={setEngineerSignature}
+                onEngineerSignatureChange={handleEngineerSignatureChange}
                 engineerName={engineerName}
                 engineerLicence={engineerLicence}
                 
                 clientSignatureUrl={clientSignature}
-                onClientSignatureChange={setClientSignature}
+                onClientSignatureChange={handleClientSignatureChange}
                 clientName={clientName}
                 clientPosition={clientPosition}
                 

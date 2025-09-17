@@ -66,14 +66,14 @@ function GasSafetyRecordContent() {
   }, [user, recordId])
 
   const handleDelete = async () => {
-    if (!record || !confirm('Are you sure you want to delete this gas safety record?')) return
+    if (!record || !user?.id || !confirm('Are you sure you want to delete this gas safety record?')) return
 
     try {
       const { error } = await supabase
         .from('gas_safety_records')
         .delete()
         .eq('id', record.id)
-        .eq('user_id', user?.id)
+        .eq('user_id', user.id)
 
       if (error) throw error
 

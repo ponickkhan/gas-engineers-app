@@ -31,7 +31,9 @@ class MemoryCache {
     // Remove oldest entries if cache is full
     if (this.cache.size >= this.maxSize) {
       const oldestKey = this.cache.keys().next().value
-      this.cache.delete(oldestKey)
+      if (oldestKey) {
+        this.cache.delete(oldestKey)
+      }
     }
 
     this.cache.set(key, {
@@ -96,12 +98,15 @@ class MemoryCache {
   // Clean up expired entries
   cleanup(): void {
     const now = Date.now()
+    const keysToDelete: string[] = []
     
-    for (const [key, entry] of this.cache.entries()) {
+    this.cache.forEach((entry, key) => {
       if (now > entry.expiresAt) {
-        this.cache.delete(key)
+        keysToDelete.push(key)
       }
-    }
+    })
+    
+    keysToDelete.forEach(key => this.cache.delete(key))
   }
 }
 

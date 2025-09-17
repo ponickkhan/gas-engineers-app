@@ -7,7 +7,74 @@ import { DashboardLayout } from '@/components/layout/Dashboard'
 import { GasSafetyForm } from '@/components/gas-safety/GasSafetyForm'
 import { useAuth } from '@/contexts/AuthContext'
 import { useToast } from '@/components/ui/Toast'
-import { supabase, supabaseClient } from '@/lib/supabase'
+import { supabaseClient as supabase } from '@/lib/supabase'
+
+// Import the form data type from the form component
+type GasSafetyFormData = {
+  client_id?: string;
+  record_date: string;
+  reference_number?: string;
+  serial_number?: string;
+  landlord_details?: {
+    name?: string;
+    address?: string;
+    postcode?: string;
+    contact_number?: string;
+    email?: string;
+  };
+  site_details?: {
+    name?: string;
+    address?: string;
+    postcode?: string;
+    contact_number?: string;
+    email?: string;
+  };
+  appliances: Array<{
+    location: string;
+    type: string;
+    manufacturer?: string;
+    model?: string;
+    owned_by_landlord?: string;
+    appliance_inspected?: string;
+    flue_type?: string;
+  }>;
+  inspection_details: Array<{
+    operating_pressure?: string;
+    safety_devices?: string;
+    ventilation?: string;
+    flue_condition?: string;
+    flue_operation?: string;
+    combustion_reading?: string;
+    appliance_serviced?: string;
+    safe_to_use?: string;
+    visual_inspection_only?: string;
+  }>;
+  final_check_results?: {
+    gas_tightness_test?: string;
+    protective_bonding?: string;
+    emergency_control?: string;
+    pipework_inspection?: string;
+    co_alarm?: string;
+    smoke_alarm?: string;
+    notes?: string;
+  };
+  defects_remedial: Array<{
+    defects_identified?: string;
+    remedial_work?: string;
+    label_warning?: string;
+    co_low?: string;
+    co2_ratio_low?: string;
+    co_high?: string;
+    co2_ratio_high?: string;
+  }>;
+  next_inspection_date?: string;
+  engineer_name: string;
+  gas_safe_licence: string;
+  engineer_signature?: string;
+  received_by_name?: string;
+  received_by_position?: string;
+  received_by_signature?: string;
+};
 
 function NewGasSafetyContent() {
   const [isSubmitting, setIsSubmitting] = useState(false)
@@ -15,7 +82,7 @@ function NewGasSafetyContent() {
   const { addToast } = useToast()
   const router = useRouter()
 
-  const handleSubmit = async (formData: any) => {
+  const handleSubmit = async (formData: GasSafetyFormData) => {
     if (!user) {
       console.error('No user found in context')
       return

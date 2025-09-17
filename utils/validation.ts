@@ -52,23 +52,34 @@ export const createGasSafeSchema = (required = true) => {
 }
 
 export const createDateSchema = (required = true, futureOnly = false, pastOnly = false) => {
-  let schema = z.string()
+  let baseSchema = z.string()
   
-  if (futureOnly) {
-    schema = schema.refine(
+  // Apply required constraint first if needed
+  if (required) {
+    baseSchema = baseSchema.min(1, ValidationMessages.required)
+  }
+  
+  // Apply refinements
+  if (futureOnly && pastOnly) {
+    // This is contradictory, but handle it
+    return baseSchema.refine(
+      () => false,
+      { message: 'Date cannot be both in future and past' }
+    )
+  } else if (futureOnly) {
+    return baseSchema.refine(
       (date) => new Date(date) > new Date(),
       { message: ValidationMessages.futureDate }
     )
-  }
-  
-  if (pastOnly) {
-    schema = schema.refine(
+  } else if (pastOnly) {
+    return baseSchema.refine(
       (date) => new Date(date) < new Date(),
       { message: ValidationMessages.pastDate }
     )
+  } else {
+    // No refinements, return as optional if not required
+    return required ? baseSchema : baseSchema.optional()
   }
-  
-  return required ? schema.min(1, ValidationMessages.required) : schema.optional()
 }
 
 export const createStringSchema = (

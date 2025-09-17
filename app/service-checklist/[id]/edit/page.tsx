@@ -9,7 +9,7 @@ import { ServiceChecklistForm } from '@/components/service-checklist/ServiceChec
 import { useAuth } from '@/contexts/AuthContext'
 import { useToast } from '@/components/ui/Toast'
 import { ServiceChecklist } from '@/types'
-import { supabase } from '@/lib/supabase'
+import { supabaseClient } from '@/lib/supabase'
 import Link from 'next/link'
 
 function EditServiceChecklistContent() {
@@ -28,7 +28,7 @@ function EditServiceChecklistContent() {
 
     setLoading(true)
     try {
-      const { data, error } = await supabase
+      const { data, error } = await supabaseClient
         .from('service_checklists')
         .select('*')
         .eq('id', checklistId)
@@ -71,7 +71,7 @@ function EditServiceChecklistContent() {
 
     setIsSubmitting(true)
     try {
-      const { data, error } = await supabase
+      const { data, error } = await supabaseClient
         .from('service_checklists')
         .update({
           ...formData,

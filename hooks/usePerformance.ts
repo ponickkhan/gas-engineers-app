@@ -36,10 +36,11 @@ class PerformanceMonitor {
           const entries = list.getEntries()
           entries.forEach((entry) => {
             if (entry.entryType === 'navigation') {
+              const navEntry = entry as PerformanceNavigationTiming
               console.log('Navigation timing:', {
-                domContentLoaded: entry.domContentLoadedEventEnd - entry.domContentLoadedEventStart,
-                loadComplete: entry.loadEventEnd - entry.loadEventStart,
-                totalTime: entry.loadEventEnd - entry.fetchStart
+                domContentLoaded: navEntry.domContentLoadedEventEnd - navEntry.domContentLoadedEventStart,
+                loadComplete: navEntry.loadEventEnd - navEntry.loadEventStart,
+                totalTime: navEntry.loadEventEnd - navEntry.fetchStart
               })
             }
           })
@@ -57,12 +58,13 @@ class PerformanceMonitor {
           const entries = list.getEntries()
           entries.forEach((entry) => {
             if (entry.entryType === 'resource') {
+              const resourceEntry = entry as PerformanceResourceTiming
               this.networkMetrics.push({
                 url: entry.name,
                 method: 'GET', // Default, actual method not available in resource timing
-                duration: entry.responseEnd - entry.requestStart,
+                duration: resourceEntry.responseEnd - resourceEntry.requestStart,
                 status: 200, // Default, actual status not available
-                size: entry.transferSize,
+                size: resourceEntry.transferSize || 0,
                 timestamp: Date.now()
               })
             }
@@ -94,7 +96,8 @@ class PerformanceMonitor {
         const fidObserver = new PerformanceObserver((list) => {
           const entries = list.getEntries()
           entries.forEach((entry) => {
-            console.log('First Input Delay:', entry.processingStart - entry.startTime)
+            const fidEntry = entry as PerformanceEventTiming
+            console.log('First Input Delay:', fidEntry.processingStart - fidEntry.startTime)
           })
         })
         

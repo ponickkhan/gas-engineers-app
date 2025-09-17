@@ -133,7 +133,7 @@ export async function withRetry<T>(
         config.maxDelay
       )
       
-      console.warn(`Attempt ${attempt} failed, retrying in ${delay}ms:`, error.message)
+      console.warn(`Attempt ${attempt} failed, retrying in ${delay}ms:`, error instanceof Error ? error.message : String(error))
       
       // Wait before retrying
       await new Promise(resolve => setTimeout(resolve, delay))

@@ -68,7 +68,7 @@ export function SignatureSection({
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div className="space-y-4">
           <SignatureUpload
-            value={signatureUrl}
+            value={signatureUrl || undefined}
             onChange={onSignatureChange}
             label="Signature"
             disabled={disabled}

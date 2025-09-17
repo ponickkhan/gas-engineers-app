@@ -66,14 +66,14 @@ function ServiceChecklistRecordContent() {
   }, [user, checklistId])
 
   const handleDelete = async () => {
-    if (!checklist || !confirm('Are you sure you want to delete this service checklist?')) return
+    if (!checklist || !user?.id || !confirm('Are you sure you want to delete this service checklist?')) return
 
     try {
       const { error } = await supabase
         .from('service_checklists')
         .delete()
         .eq('id', checklist.id)
-        .eq('user_id', user?.id)
+        .eq('user_id', user.id)
 
       if (error) throw error
 

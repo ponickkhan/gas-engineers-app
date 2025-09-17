@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react'
 import { useParams, useRouter } from 'next/navigation'
 import { AuthGuard } from '@/components/auth/AuthGuard'
-import { PrintPreview } from '@/components/ui/PrintPreview'
+import { PrintLayout } from '@/components/layout/PrintLayout'
 import { ServiceChecklistView } from '@/components/service-checklist/ServiceChecklistView'
 import { useAuth } from '@/contexts/AuthContext'
 import { useToast } from '@/components/ui/Toast'
@@ -82,12 +82,12 @@ function PrintServiceChecklistContent() {
   }
 
   return (
-    <PrintPreview
+    <PrintLayout
       title={`Service Checklist - ${checklist.appliance_details?.type || 'Unknown Appliance'}`}
-      onBack={() => router.push(`/service-checklist/${checklistId}`)}
+      orientation="portrait"
     >
       <ServiceChecklistView checklist={checklist} />
-    </PrintPreview>
+    </PrintLayout>
   )
 }
 

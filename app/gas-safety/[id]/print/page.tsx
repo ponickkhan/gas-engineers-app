@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react'
 import { useParams, useRouter } from 'next/navigation'
 import { AuthGuard } from '@/components/auth/AuthGuard'
-import { PrintPreview } from '@/components/ui/PrintPreview'
+import { PrintLayout } from '@/components/layout/PrintLayout'
 import { GasSafetyView } from '@/components/gas-safety/GasSafetyView'
 import { useAuth } from '@/contexts/AuthContext'
 import { useToast } from '@/components/ui/Toast'
@@ -82,12 +82,12 @@ function PrintGasSafetyContent() {
   }
 
   return (
-    <PrintPreview
+    <PrintLayout
       title={`Gas Safety Record - ${record.reference_number || 'No Reference'}`}
-      onBack={() => router.push(`/gas-safety/${recordId}`)}
+      orientation="portrait"
     >
       <GasSafetyView record={record} />
-    </PrintPreview>
+    </PrintLayout>
   )
 }
 
