@@ -1,0 +1,176 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom CSS for maintaining the original design aesthetic */
+:root {
+  --orient-blue: #2e5aa6;
+  --orient-line: #2e5aa6;
+  --orient-cell: #ffffff;
+  --orient-head: #fffec7;
+  --orient-pale: #fff6b8;
+}
+
+/* Print styles */
+@media print {
+  @page {
+    size: A4;
+    margin: 8mm;
+  }
+  
+  .no-print {
+    display: none !important;
+  }
+  
+  .print-landscape {
+    @page {
+      size: A4 landscape;
+      margin: 6mm;
+    }
+  }
+  
+  .print-portrait {
+    @page {
+      size: A4 portrait;
+      margin: 7mm;
+    }
+  }
+  
+  /* Hide form controls in print */
+  input[type="date"]::-webkit-calendar-picker-indicator,
+  input[type="date"]::-webkit-inner-spin-button,
+  input[type="date"]::-webkit-clear-button,
+  input[type="number"]::-webkit-inner-spin-button,
+  input[type="number"]::-webkit-outer-spin-button {
+    display: none !important;
+    -webkit-appearance: none;
+  }
+  
+  input[type="date"], 
+  input[type="number"] {
+    -moz-appearance: textfield;
+    appearance: textfield;
+  }
+  
+  select::-ms-expand {
+    display: none;
+  }
+  
+  select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+  }
+}
+
+/* Form field styles to match original design */
+.form-field {
+  @apply w-full border-0 bg-transparent;
+}
+
+.form-field:focus {
+  @apply outline-none ring-2 ring-orient-blue ring-opacity-50;
+}
+
+/* Table styles matching original design */
+.orient-table {
+  @apply w-full border-collapse;
+  table-layout: fixed;
+  font-size: 12px;
+}
+
+.orient-table th,
+.orient-table td {
+  @apply border border-orient-line p-1 align-middle bg-orient-cell;
+}
+
+.orient-table th {
+  @apply bg-orient-head text-left font-bold;
+}
+
+/* Block styles */
+.orient-block {
+  @apply border-2 border-orient-line rounded overflow-hidden mt-1.5;
+}
+
+.orient-bar {
+  @apply bg-orient-blue text-white font-bold text-sm px-1.5 py-1 flex items-center justify-center relative min-h-7;
+}
+
+/* Responsive grid layouts */
+.row-2 {
+  @apply grid grid-cols-1 md:grid-cols-2 gap-1.5;
+}
+
+.row-3 {
+  @apply grid grid-cols-1 md:grid-cols-3 gap-1.5;
+}
+
+.band-2-1 {
+  @apply grid grid-cols-1 lg:grid-cols-3 gap-1.5;
+}
+
+.band-2-1 > :first-child {
+  @apply lg:col-span-2;
+}
+
+/* Auto-save indicator */
+.auto-save-indicator {
+  @apply fixed bottom-4 right-4 px-3 py-2 rounded-lg shadow-lg z-50 transition-all duration-300;
+}
+
+.auto-save-indicator.saving {
+  @apply bg-yellow-100 text-yellow-800 border border-yellow-300;
+}
+
+.auto-save-indicator.saved {
+  @apply bg-green-100 text-green-800 border border-green-300;
+}
+
+.auto-save-indicator.error {
+  @apply bg-red-100 text-red-800 border border-red-300;
+}
+
+/* Toast animations */
+@keyframes slide-in-from-right {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slide-out-to-right {
+  from {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+}
+
+.animate-in {
+  animation: slide-in-from-right 0.3s ease-out;
+}
+
+.animate-out {
+  animation: slide-out-to-right 0.2s ease-in;
+}
+
+.slide-in-from-right-full {
+  animation: slide-in-from-right 0.3s ease-out;
+}
+
+/* Toast container responsive adjustments */
+@media (max-width: 640px) {
+  .toast-container {
+    left: 1rem;
+    right: 1rem;
+    top: 1rem;
+  }
+}
